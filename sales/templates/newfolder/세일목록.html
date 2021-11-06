@@ -1,0 +1,29 @@
+<html>
+<head>
+    <style>
+        .세일{
+            padding-top: 2rem;
+            padding-bottom: 3rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+
+<h1>이것이 세일 목록들 입니다.</h1>
+{% for 인간 in 사람키 %}
+    <div class="세일">
+        <a href="/세일목록/{{인간.pk}}">{{ 인간.last_name }} {{ 인간.first_name }} </a> 나이는 {{ 인간.age }}
+        
+    </div>
+{% endfor %}
+
+<!-- <br>
+사람.frist : {{ 사람first }}
+<br>
+사람.frist.frist_name : {{ 사람first.first_name }} -->
+</body>
+
+</html>
