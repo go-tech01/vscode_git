@@ -18,7 +18,7 @@ class Sale(models.Model):
 	# person = models.ForeignKey("Person", on_delete=models.SET_NULL, null=True)
 	# person = models.ForeignKey("Person", on_delete=models.SET_DEFAULT, null=True, default=...)
 	def __str__(self):
-		return f"이름:{self.last_name} {self.first_name}"
+		return f"이름 : {self.last_name}{self.first_name}"
 
 class Person(models.Model):
 	회원 = models.OneToOneField(아이디, on_delete=models.CASCADE)

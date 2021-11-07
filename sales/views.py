@@ -1,9 +1,9 @@
 from django.http.response import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from sales.forms import SalesForm
-from sales.models import Sale, 아이디
+from sales.models import Person, Sale, 아이디
 
 # Create your views here.
 
@@ -32,21 +32,47 @@ def 세일상세(request, pk):
 #     }
 #     return render(request, "newfolder/세일_입력.html", context)
 
+# def 세일_입력(request):     # 형석쌤 인프런
+#     print(request.POST)
+#     if request.method == "POST":
+#         if SalesForm(request.POST).is_valid():
+#             이름 = request.POST.get("first_name")
+#             성 = request.POST.get("last_name")
+#             나이 = request.POST.get("age")
+#             new_sale = Sale()
+#             new_sale.first_name = 이름
+#             new_sale.last_name = 성
+#             new_sale.age = 나이
+#             new_sale.person =  Person.objects.first()
+#             new_sale.save()
+#             return redirect("/세일목록")
+#     return render(request, "newfolder/세일_입력.html", context={"폼키":SalesForm})
 
-def 세일_입력(request):
+def 세일_입력(request):  # 기초부터 제작하는 장고
     print(request.POST)  # 객체
-    # if request.method == "POST":
-    #     temp = request.POST.get("세일목록_input")
-    #     print(temp)
-    #     new_sale = Sale()
-    #     # new_sale = temp
-    #     # new_sale.save()
+    폼 = SalesForm()
+    if request.method == "POST":
+        print("포스트 메소드로 왔네요")
+        폼 = SalesForm(request.POST)
+        if 폼.is_valid():
+            print("유효하네요")
+            print(폼.cleaned_data)
+            이름 = 폼.cleaned_data['first_name']
+            성 = 폼.cleaned_data['last_name']
+            나이 = 폼.cleaned_data['age']
+            사람 =  Person.objects.first()
+            Sale.objects.create(
+                first_name = 이름,
+                last_name = 성,
+                age = 나이,
+                person = 사람
+            )
+            print("세일이 입력되었습니다")
+            return redirect("/세일목록")
     context = {
-        "폼키": SalesForm
+        "폼키": 폼
     }
-    render(request, "newfolder/세일_입력.html", context)
-    # else:
-    #     render(request, "newfolder/세일_입력.html", context={"text":"Get method"})
+    return render(request, "newfolder/세일_입력.html", context)
 
 
 def 홈페이지(request):

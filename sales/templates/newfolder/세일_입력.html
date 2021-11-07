@@ -5,12 +5,30 @@
     <p>세일을 입력해주세요.</p>
     <form method="post">
     {% csrf_token %}
-    {% comment %} <div naem="세일목록_input"> {% endcomment %}
     {{ 폼키.as_p }}
-    {% comment %} </div> {% endcomment %}
     <button type="submit">전송</button>
-    {% comment %} <input type="submit" value="POST"> {% endcomment %}
     </form>
 </body>
 </html>
 
+
+<!-- 박형석쌤 -->
+<!-- <html>
+<head>
+</head>
+<body>       
+    <p>세일을 입력해주세요.</p>
+    <form method="post">
+    {% csrf_token %}
+    {{ 폼키.as_p }}
+    <input type="submit" value="POST"></input>
+    </form>
+</body>
+</html> -->
+
+<!-- {% if output %}
+    {{ output }}
+    {{ output.first_name }}
+    {{ output.last_name }}
+    {{ output.age }}
+{% endif %} -->
