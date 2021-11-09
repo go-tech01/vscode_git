@@ -2,7 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
-from sales.forms import SalesForm
+from sales.forms import SalesForm, SaleModelForm
 from sales.models import Person, Sale, 아이디
 
 # Create your views here.
@@ -25,6 +25,19 @@ def 세일상세(request, pk):
                }
     return render(request, "newfolder/세일상세.html", context)
 
+def 세일_입력(request):  # 기초부터 제작하는 장고, ModelForm
+    print(request.POST)  # 객체
+    폼 = SaleModelForm()
+    if request.method == "POST":
+        폼 = SaleModelForm(request.POST)
+        if 폼.is_valid():
+            폼.save()
+            return redirect("/세일목록")
+    context = {
+        "폼키": 폼
+    }
+    return render(request, "newfolder/세일_입력.html", context)
+
 # def 세일_입력(request):
 #     print(request.POST)
 #     context = {
@@ -32,7 +45,7 @@ def 세일상세(request, pk):
 #     }
 #     return render(request, "newfolder/세일_입력.html", context)
 
-# def 세일_입력(request):     # 형석쌤 인프런
+# def 세일_입력(request):     # 형석쌤 인프런, Form
 #     print(request.POST)
 #     if request.method == "POST":
 #         if SalesForm(request.POST).is_valid():
@@ -48,31 +61,31 @@ def 세일상세(request, pk):
 #             return redirect("/세일목록")
 #     return render(request, "newfolder/세일_입력.html", context={"폼키":SalesForm})
 
-def 세일_입력(request):  # 기초부터 제작하는 장고
-    print(request.POST)  # 객체
-    폼 = SalesForm()
-    if request.method == "POST":
-        print("포스트 메소드로 왔네요")
-        폼 = SalesForm(request.POST)
-        if 폼.is_valid():
-            print("유효하네요")
-            print(폼.cleaned_data)
-            이름 = 폼.cleaned_data['first_name']
-            성 = 폼.cleaned_data['last_name']
-            나이 = 폼.cleaned_data['age']
-            사람 =  Person.objects.first()
-            Sale.objects.create(
-                first_name = 이름,
-                last_name = 성,
-                age = 나이,
-                person = 사람
-            )
-            print("세일이 입력되었습니다")
-            return redirect("/세일목록")
-    context = {
-        "폼키": 폼
-    }
-    return render(request, "newfolder/세일_입력.html", context)
+# def 세일_입력(request):  # 기초부터 제작하는 장고, Form
+#     print(request.POST)  # 객체
+#     폼 = SalesForm()
+#     if request.method == "POST":
+#         print("포스트 메소드로 왔네요")
+#         폼 = SalesForm(request.POST)
+#         if 폼.is_valid():
+#             print("유효하네요")
+#             print(폼.cleaned_data)
+#             이름 = 폼.cleaned_data['first_name']
+#             성 = 폼.cleaned_data['last_name']
+#             나이 = 폼.cleaned_data['age']
+#             사람 =  Person.objects.first()
+#             Sale.objects.create(
+#                 first_name = 이름,
+#                 last_name = 성,
+#                 age = 나이,
+#                 person = 사람
+#             )
+#             print("세일이 입력되었습니다")
+#             return redirect("/세일목록")
+#     context = {
+#         "폼키": 폼
+#     }
+#     return render(request, "newfolder/세일_입력.html", context)
 
 
 def 홈페이지(request):
