@@ -1,6 +1,7 @@
+from django.db import models
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DeleteView
 from django.urls import reverse_lazy
 from sales.forms import SalesForm, SaleModelForm
 from sales.models import Person, Sale, 아이디
@@ -86,6 +87,53 @@ def 세일_입력(request):  # 기초부터 제작하는 장고, ModelForm
 #         "폼키": 폼
 #     }
 #     return render(request, "newfolder/세일_입력.html", context)
+
+def 세일_업데이트(request, pk):        # 모델폼
+    사람 = Sale.objects.get(id=pk)
+    # 폼 = SaleModelForm()
+    폼 = SaleModelForm(instance=사람) 
+    if request.method == "POST":
+        폼 = SaleModelForm(request.POST, instance=사람)
+        if 폼.is_valid():
+            폼.save()
+            return redirect("/세일목록")
+    context = {
+            "사람키":사람,
+            "폼키": 폼
+    }
+    return render(request, "newfolder/세일_업데이트.html", context)
+
+def 세일_지우기(request, pk):
+    사람 = Sale.objects.get(id=pk)
+    사람.delete()
+    return redirect("/세일목록")
+
+# class 세일_지우기(DeleteView):
+#     model = Sale
+#     context_object_name = '사람키'
+#     success_url = reverse_lazy('세일목록1:delete')
+#     template_name = 'sales/세일상세.html'
+
+# def 세일_업데이트(request, pk):        # 일반폼
+#     사람 = Sale.objects.get(id=pk)
+#     폼 = SalesForm()
+#     if request.method == "POST":
+#         폼 = SalesForm(request.POST)
+#         if 폼.is_valid():
+#             이름 = 폼.cleaned_data['first_name']
+#             성 = 폼.cleaned_data['last_name']
+#             나이 = 폼.cleaned_data['age']
+#             사람.frist_name = 이름
+#             사람.last_name = 성
+#             사람.age = 나이
+#             사람.save()
+#             return redirect("/세일목록")
+#     context = {
+#         "사람키": 사람,
+#         "폼키":폼
+#         }
+#     return render(request, "newfolder/세일_업데이트.html", context)
+
 
 
 def 홈페이지(request):

@@ -15,5 +15,9 @@
     <p>이 분의 나이는 {{ 사람키.age }}입니다.</p>
     <p>영업 실적을 올린 직원은 {{ 사람키.person }}입니다.</p>
     {{ 사람키 }}
+    {% comment %} <p><a href="./update">업데이트</a></p>
+    <p><a href="./delete">삭제</a></p> {% endcomment %}
+    <p><a href="/세일목록/{{ 사람키.pk }}/update">업데이트</a></p>
+    <p><a href="/세일목록/{{ 사람키.pk }}/delete">삭제</a></p>
 </body>
 </html>

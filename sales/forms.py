@@ -5,7 +5,7 @@ from sales.models import Sale
 class SaleModelForm(forms.ModelForm):
     class Meta:
         model = Sale
-        fields = ('first_name', 'last_name', 'age')
+        fields = ('first_name', 'last_name', 'age', 'person')
  
 class SalesForm(forms.Form):
     first_name = forms.CharField()
