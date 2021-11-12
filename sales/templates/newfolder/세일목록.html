@@ -11,12 +11,16 @@
     </style>
 </head>
 <body>
+<a href="/세일목록/make/">세일 만들기</a>
+<a href="{% url '세일목록1:생성' %}">세일 만들기</a>
+<a href="{% url '홈페이지:생성' %}">세일 만들기</a>
 
 <h1>이것이 세일 목록들 입니다.</h1>
 {% for 인간 in 사람키 %}
     <div class="세일">
         <a href="/세일목록/{{인간.pk}}">{{ 인간.last_name }} {{ 인간.first_name }} </a> 나이는 {{ 인간.age }}
-        
+        <a href="{% url '세일목록1:상세' 인간.pk %}">{{ 인간.last_name }} {{ 인간.first_name }} </a> 나이는 {{ 인간.age }}
+        <a href="{% url '홈페이지:상세' 인간.pk %}">{{ 인간.last_name }} {{ 인간.first_name }} </a> 나이는 {{ 인간.age }}
     </div>
 {% endfor %}
 
