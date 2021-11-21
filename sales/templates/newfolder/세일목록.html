@@ -1,16 +1,6 @@
-<html>
-<head>
-    <style>
-        .세일{
-            padding-top: 2rem;
-            padding-bottom: 3rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            background-color: aquamarine;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+
 <a href="/세일목록/make/">세일 만들기</a>
 <a href="{% url '세일목록1:생성' %}">세일 만들기</a>
 <a href="{% url '홈페이지:생성' %}">세일 만들기</a>
@@ -28,6 +18,6 @@
 사람.frist : {{ 사람first }}
 <br>
 사람.frist.frist_name : {{ 사람first.first_name }} -->
-</body>
 
-</html>
+{% endblock  %}
+
